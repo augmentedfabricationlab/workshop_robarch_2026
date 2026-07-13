@@ -49,10 +49,10 @@
             <chunk name="Projection">
               <items count="2">
                 <item name="Target" type_name="gh_drawing_point" type_code="30">
-                  <X>297</X>
-                  <Y>303</Y>
+                  <X>22</X>
+                  <Y>-185</Y>
                 </item>
-                <item name="Zoom" type_name="gh_single" type_code="5">0.12846223</item>
+                <item name="Zoom" type_name="gh_single" type_code="5">0.4714371</item>
               </items>
             </chunk>
             <chunk name="Views">
@@ -2384,14 +2384,14 @@
                       <items count="3">
                         <item name="Expression" type_name="gh_string" type_code="10">4</item>
                         <item name="Name" type_name="gh_string" type_code="10">milling tool</item>
-                        <item name="Selected" type_name="gh_bool" type_code="1">false</item>
+                        <item name="Selected" type_name="gh_bool" type_code="1">true</item>
                       </items>
                     </chunk>
                     <chunk name="ListItem" index="5">
                       <items count="3">
                         <item name="Expression" type_name="gh_string" type_code="10">5</item>
                         <item name="Name" type_name="gh_string" type_code="10">scanning tool</item>
-                        <item name="Selected" type_name="gh_bool" type_code="1">true</item>
+                        <item name="Selected" type_name="gh_bool" type_code="1">false</item>
                       </items>
                     </chunk>
                     <chunk name="Attributes">
@@ -8429,7 +8429,7 @@
                   </items>
                   <chunks count="4">
                     <chunk name="Attributes">
-                      <items count="3">
+                      <items count="2">
                         <item name="Bounds" type_name="gh_drawing_rectanglef" type_code="35">
                           <X>1283</X>
                           <Y>525</Y>
@@ -8440,7 +8440,6 @@
                           <X>1334</X>
                           <Y>582</Y>
                         </item>
-                        <item name="Selected" type_name="gh_bool" type_code="1">true</item>
                       </items>
                     </chunk>
                     <chunk name="ParameterData">
@@ -8477,7 +8476,7 @@
                           </items>
                           <chunks count="2">
                             <chunk name="Attributes">
-                              <items count="3">
+                              <items count="2">
                                 <item name="Bounds" type_name="gh_drawing_rectanglef" type_code="35">
                                   <X>1285</X>
                                   <Y>527</Y>
@@ -8488,7 +8487,6 @@
                                   <X>1303.5</X>
                                   <Y>540.75</Y>
                                 </item>
-                                <item name="Selected" type_name="gh_bool" type_code="1">true</item>
                               </items>
                             </chunk>
                             <chunk name="ConverterData">
@@ -8521,7 +8519,7 @@
                           </items>
                           <chunks count="2">
                             <chunk name="Attributes">
-                              <items count="3">
+                              <items count="2">
                                 <item name="Bounds" type_name="gh_drawing_rectanglef" type_code="35">
                                   <X>1285</X>
                                   <Y>554</Y>
@@ -8532,7 +8530,6 @@
                                   <X>1303.5</X>
                                   <Y>568.25</Y>
                                 </item>
-                                <item name="Selected" type_name="gh_bool" type_code="1">true</item>
                               </items>
                             </chunk>
                             <chunk name="ConverterData">
@@ -8565,7 +8562,7 @@
                           </items>
                           <chunks count="2">
                             <chunk name="Attributes">
-                              <items count="3">
+                              <items count="2">
                                 <item name="Bounds" type_name="gh_drawing_rectanglef" type_code="35">
                                   <X>1285</X>
                                   <Y>582</Y>
@@ -8576,7 +8573,6 @@
                                   <X>1303.5</X>
                                   <Y>595.75</Y>
                                 </item>
-                                <item name="Selected" type_name="gh_bool" type_code="1">true</item>
                               </items>
                             </chunk>
                             <chunk name="ConverterData">
@@ -8608,7 +8604,7 @@
                           </items>
                           <chunks count="2">
                             <chunk name="Attributes">
-                              <items count="3">
+                              <items count="2">
                                 <item name="Bounds" type_name="gh_drawing_rectanglef" type_code="35">
                                   <X>1285</X>
                                   <Y>609</Y>
@@ -8619,7 +8615,6 @@
                                   <X>1303.5</X>
                                   <Y>623.25</Y>
                                 </item>
-                                <item name="Selected" type_name="gh_bool" type_code="1">true</item>
                               </items>
                             </chunk>
                             <chunk name="ConverterData">
@@ -8641,7 +8636,7 @@
                           </items>
                           <chunks count="1">
                             <chunk name="Attributes">
-                              <items count="3">
+                              <items count="2">
                                 <item name="Bounds" type_name="gh_drawing_rectanglef" type_code="35">
                                   <X>1349</X>
                                   <Y>527</Y>
@@ -8652,7 +8647,6 @@
                                   <X>1386.5</X>
                                   <Y>554.5</Y>
                                 </item>
-                                <item name="Selected" type_name="gh_bool" type_code="1">true</item>
                               </items>
                             </chunk>
                           </chunks>
@@ -8677,7 +8671,7 @@
                           </items>
                           <chunks count="2">
                             <chunk name="Attributes">
-                              <items count="3">
+                              <items count="2">
                                 <item name="Bounds" type_name="gh_drawing_rectanglef" type_code="35">
                                   <X>1349</X>
                                   <Y>582</Y>
@@ -8688,7 +8682,6 @@
                                   <X>1386.5</X>
                                   <Y>609.5</Y>
                                 </item>
-                                <item name="Selected" type_name="gh_bool" type_code="1">true</item>
                               </items>
                             </chunk>
                             <chunk name="ConverterData">
@@ -15971,8 +15964,8 @@
                     <chunk name="Attributes">
                       <items count="1">
                         <item name="Bounds" type_name="gh_drawing_rectanglef" type_code="35">
-                          <X>123</X>
-                          <Y>3428</Y>
+                          <X>125</X>
+                          <Y>3463</Y>
                           <W>170</W>
                           <H>22</H>
                         </item>
