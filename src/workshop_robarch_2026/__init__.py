@@ -21,5 +21,7 @@ Describe typical classes found in project
 """
 
 from .sample_module import SampleClassName
+from .pointcloud_publisher import *
+from .scanframes import *
 
 __all__ = ['SampleClassName']
