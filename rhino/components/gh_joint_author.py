@@ -15,6 +15,8 @@ Inputs:
     aspect  (float)        interface length in section units (e.g. 3.0)
     save    (bool)         write data/corpus/joints/<key>.json (+ .md skeleton)
 Outputs:
+    stock                  the canonical stock box for the given aspect --
+                           draw your cutters against exactly this
     kept, prosthesis       canonical partition preview (validation by eye)
     report                 acceptance test + per-cutter diagnostics
 """
@@ -38,6 +40,7 @@ from Grasshopper.Kernel.Data import GH_Path
 
 kept = DataTree[object]()
 prosthesis = DataTree[object]()
+stock = None
 report = ["version: {}".format(VERSION)]
 
 def _curve_to_cut(crv, depth, name):
@@ -64,6 +67,13 @@ def _curve_to_cut(crv, depth, name):
     prof = np.array([[(p - P0) @ u2, (p - P0) @ v2] for p in P])
     return kernel.Cut(name, False, nn, offset, in_plane, amount, [prof])
 
+asp = float(aspect) if aspect else 3.0
+try:
+    _sb = evaluator.lhf_breps(kernel.canonical_stock(asp).to_json())
+    stock = _sb[0] if _sb else None
+except Exception as exc:
+    report.append("stock preview failed: {}".format(exc))
+
 if cutters and key:
     try:
         crvs = cutters if isinstance(cutters, list) else [cutters]
@@ -73,7 +83,6 @@ if cutters and key:
         cuts = [_curve_to_cut(c, d, "lhf_%d" % (i + 1))
                 for i, (c, d) in enumerate(zip(crvs, dpts))]
 
-        asp = float(aspect) if aspect else 3.0
         j = {"schema": kernel.SCHEMA, "key": str(key), "aspect": asp,
              "section": 1.0, "cuts": [c.to_json() for c in cuts]}
 
@@ -94,11 +103,11 @@ if cutters and key:
             report.append("  more material toward y=aspect (the prosthesis end)")
 
         # canonical partition preview via the real evaluator
-        stock = kernel.canonical_stock(asp)
+        stock_cut = kernel.canonical_stock(asp)
         named = [kernel.Cut.from_json(c) for c in j["cuts"]]
         for i, c in enumerate(named):
             c.name = "lhf_%d" % (i + 1)
-        all_cuts = [stock] + named
+        all_cuts = [stock_cut] + named
         names = ", ".join(c.name for c in named)
         cj = [c.to_json() for c in all_cuts]
         for pname, expr, tree in (
