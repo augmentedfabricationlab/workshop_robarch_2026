@@ -84,11 +84,15 @@ if run and key:
                 report.append("  {} FAILED to build: {}".format(c.name, exc))
 
         all_cuts = [stock_cut] + named
-        names = ", ".join(c.name for c in named)
+        removal = kernel.removal_expression(j, [c.name for c in named])
+        groups = kernel.removal_groups(j, len(named))
+        if any(len(g) > 1 for g in groups):
+            report.append("removal: {} intersect group(s) -> {}".format(
+                len(groups), removal))
         cj = [c.to_json() for c in all_cuts]
         for pname, expr, tree in (
-                ("kept", "Difference(lhf_0, Union(%s))" % names, kept),
-                ("prosthesis", "Intersection(lhf_0, Union(%s))" % names, prosthesis)):
+                ("kept", "Difference(lhf_0, %s)" % removal, kept),
+                ("prosthesis", "Intersection(lhf_0, %s)" % removal, prosthesis)):
             try:
                 bs = evaluator.evaluate_part({"cuts": cj, "expression": expr})
                 tree.AddRange(bs, GH_Path(0))

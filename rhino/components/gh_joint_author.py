@@ -11,9 +11,25 @@ Inputs:
     cutters (Curve, list)  closed planar curves, one per cutter
     depths  (float, list)  extrusion depth per cutter, along each curve's
                            plane normal; negative = extrude the other way
-    key     (str)          e.g. "SW2"
+    planes  (Plane, list)  OPTIONAL. Each becomes a half-space cutter, sized
+                           automatically to overshoot the stock. The plane
+                           NORMAL POINTS INTO THE MATERIAL TO BE REMOVED.
+                           Half-spaces are only useful with `groups` -- one
+                           on its own saws the stock in half.
+    groups  (str)          OPTIONAL. Intersect groups over the cut indices,
+                           e.g. "0,1,4; 0,1,5; 2,6,7; 3,6,7". Members of a
+                           group are INTERSECTED, groups are UNIONED. Blank
+                           = the plain union every other joint uses.
+                           Indices count curve cutters first, then planes --
+                           the report prints the numbering.
+    key     (str)          e.g. "SJ5"
     aspect  (float)        interface length in section units (e.g. 3.0)
     save    (bool)         write data/corpus/joints/<key>.json (+ .md skeleton)
+
+Reach for `groups` when a vertex of the removal is convex on the REMOVAL
+side -- a pocket, a wedge, a valley meeting a ridge. No union of prisms can
+produce one (every design face is a side face, so they share a common
+perpendicular and meet in a line, never a point). See SJ4.
 Outputs:
     stock                  the canonical stock box for the given aspect --
                            draw your cutters against exactly this
@@ -42,6 +58,12 @@ kept = DataTree[object]()
 prosthesis = DataTree[object]()
 stock = None
 report = ["version: {}".format(VERSION)]
+
+def _plane_to_cut(pl, name, asp):
+    n = (pl.Normal.X, pl.Normal.Y, pl.Normal.Z)
+    o = (pl.Origin.X, pl.Origin.Y, pl.Origin.Z)
+    return kernel.half_space_cut(name, n, o, asp)
+
 
 def _curve_to_cut(crv, depth, name):
     ok, plane = crv.TryGetPlane(0.001)
@@ -74,17 +96,35 @@ try:
 except Exception as exc:
     report.append("stock preview failed: {}".format(exc))
 
-if cutters and key:
+_has_planes = bool(globals().get("planes"))
+if (cutters or _has_planes) and key:
     try:
-        crvs = cutters if isinstance(cutters, list) else [cutters]
+        crvs = cutters if isinstance(cutters, list) else ([cutters] if cutters else [])
         dpts = depths if isinstance(depths, list) else [depths]
         if len(dpts) == 1 and len(crvs) > 1:
             dpts = dpts * len(crvs)
         cuts = [_curve_to_cut(c, d, "lhf_%d" % (i + 1))
                 for i, (c, d) in enumerate(zip(crvs, dpts))]
 
+        pls = globals().get("planes") or []
+        pls = pls if isinstance(pls, list) else [pls]
+        for k, pl in enumerate(pls):
+            cuts.append(_plane_to_cut(pl, "lhf_%d" % (len(cuts) + 1), asp))
+
+        grp = kernel.parse_groups(globals().get("groups"), len(cuts))
+
+        report.append("cuts: {} curve(s) + {} plane(s)".format(len(crvs), len(pls)))
+        for i, c in enumerate(cuts):
+            kind = "curve" if i < len(crvs) else "plane"
+            report.append("  [{}] {}  {}".format(i, kind, c.name))
+        if grp:
+            report.append("groups: {}".format(
+                "  ".join("(" + ",".join(str(i) for i in g) + ")" for g in grp)))
+
         j = {"schema": kernel.SCHEMA, "key": str(key), "aspect": asp,
              "section": 1.0, "cuts": [c.to_json() for c in cuts]}
+        if grp:
+            j["removal_groups"] = grp
 
         # headless acceptance
         chk = joints.check_joint(j)
@@ -108,11 +148,11 @@ if cutters and key:
         for i, c in enumerate(named):
             c.name = "lhf_%d" % (i + 1)
         all_cuts = [stock_cut] + named
-        names = ", ".join(c.name for c in named)
+        removal = kernel.removal_expression(j, [c.name for c in named])
         cj = [c.to_json() for c in all_cuts]
         for pname, expr, tree in (
-            ("kept", "Difference(lhf_0, Union(%s))" % names, kept),
-            ("prosthesis", "Intersection(lhf_0, Union(%s))" % names, prosthesis)):
+            ("kept", "Difference(lhf_0, %s)" % removal, kept),
+            ("prosthesis", "Intersection(lhf_0, %s)" % removal, prosthesis)):
             try:
                 bs = evaluator.evaluate_part({"cuts": cj, "expression": expr})
                 tree.AddRange(bs, GH_Path(0))
@@ -122,7 +162,8 @@ if cutters and key:
         report += evaluator.diagnose_cuts({"cuts": cj, "expression": ""})
 
         if save and chk["partition_ok"] and chk["has_both_sides"] and chk.get("orientation_ok", True) and chk.get("end_overshoot_ok", True):
-            path = joints.save_joint(REPO, str(key), asp, cuts)
+            path = joints.save_joint(REPO, str(key), asp, cuts,
+                                     removal_groups=grp)
             report.append("SAVED: {}".format(path))
             report.append("datasheet: fill in {}.md next to it".format(key))
         elif save:
@@ -130,5 +171,5 @@ if cutters and key:
     except Exception as exc:
         report.append("ERROR: {}".format(exc))
 else:
-    report.append("connect cutter curves + key, set save when the preview is right")
+    report.append("connect cutter curves and/or planes + key, then set save")
     report.append("catalogue: {}".format(", ".join(joints.list_keys(REPO)) or "(empty)"))

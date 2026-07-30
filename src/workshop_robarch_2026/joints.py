@@ -43,12 +43,19 @@ def load_datasheet(repo_root: str, key: str) -> str:
     return ""
 
 
-def save_joint(repo_root: str, key: str, aspect: float, cuts, notes: str = "") -> str:
-    """cuts: list of kernel.Cut in canonical space (cutters only, no stock)."""
+def save_joint(repo_root: str, key: str, aspect: float, cuts, notes: str = "",
+               removal_groups=None) -> str:
+    """cuts: list of kernel.Cut in canonical space (cutters only, no stock).
+
+    removal_groups: optional lists of 0-based indices into `cuts`. Members
+    of a group are intersected, groups are unioned. Omit for a plain union.
+    """
     d = joints_dir(repo_root)
     os.makedirs(d, exist_ok=True)
     j = {"schema": kernel.SCHEMA, "key": key, "aspect": float(aspect),
          "section": 1.0, "cuts": [c.to_json() for c in cuts]}
+    if removal_groups:
+        j["removal_groups"] = [[int(i) for i in g] for g in removal_groups]
     path = os.path.join(d, key + ".json")
     with open(path, "w", encoding="utf-8") as f:
         json.dump(j, f, indent=1)
@@ -73,9 +80,9 @@ def check_joint(joint: dict, n: int = 40000) -> dict:
     for i, c in enumerate(cutters):
         c.name = "lhf_%d" % (i + 1)
     all_cuts = [stock] + cutters
-    names = ", ".join(c.name for c in cutters)
-    kept_e = "Difference(lhf_0, Union(%s))" % names
-    pros_e = "Intersection(lhf_0, Union(%s))" % names
+    removal = kernel.removal_expression(joint, [c.name for c in cutters])
+    kept_e = "Difference(lhf_0, %s)" % removal
+    pros_e = "Intersection(lhf_0, %s)" % removal
 
     rng = np.random.default_rng(7)
     pts = rng.uniform([-0.5 * section, 0.0, -0.5 * section],
@@ -117,11 +124,15 @@ def _end_overshoot_ok(joint, cutters) -> bool:
     rng = np.random.default_rng(11)
     xz = rng.uniform([-0.5 * section, -0.5 * section],
                      [0.5 * section, 0.5 * section], size=(4000, 2))
+    groups = _k.removal_groups(joint, len(cutters))
     def coverage(y):
         pts = np.column_stack([xz[:, 0], np.full(len(xz), y), xz[:, 1]])
         acc = np.zeros(len(pts), bool)
-        for c in cutters:
-            acc |= _k._points_in_cut(pts, c)
+        for g in groups:
+            m = np.ones(len(pts), bool)
+            for i in g:
+                m &= _k._points_in_cut(pts, cutters[i])
+            acc |= m
         return float(acc.mean())
     inner = coverage(0.995 * L)
     outer = coverage(1.005 * L)

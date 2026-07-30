@@ -8,8 +8,10 @@ Canonical joint space (the authoring contract):
     stock section: x, z in [-0.5, +0.5]   (section = 1.0)
     stock length:  y in [0, aspect]        (aspect = length / section)
     the PRIMARY part's cutters remove the prosthesis side material;
-    kept   = Difference(stock, Union(cutters))
-    prosthesis = Intersection(stock, Union(cutters))
+    kept   = Difference(stock, REMOVAL)
+    prosthesis = Intersection(stock, REMOVAL)
+    where REMOVAL is Union(cutters), or a union of intersect
+    groups when the joint declares "removal_groups".
     cutters MUST overshoot the stock sideways (never share a face with it).
 """
 from __future__ import annotations
@@ -86,6 +88,98 @@ def canonical_stock(aspect, section=1.0):
                np.array([h, 0, h]), np.array([-h, 0, h])]
     prof = np.array([[c @ u2, c @ v2] for c in corners])
     return Cut("lhf_0", True, n, 0.0, [0.0, 0.0], aspect * section, [prof])
+
+
+
+
+def half_space_cut(name, normal, point, aspect, section=1.0, slack=6.0):
+    """A cutter that removes everything on ONE SIDE of a plane.
+
+    The normal points INTO the material to be removed. The prism is sized
+    from the canonical stock so it overshoots in every direction, which
+    keeps its cap faces well clear of the stock and out of the design.
+
+    Half-spaces are only useful in combination: a lone one cuts the stock
+    in two. Intersect them via "removal_groups" and any convex solid is
+    reachable; union those groups and any polyhedron is.
+    """
+    n = np.asarray(normal, float)
+    n = n / np.linalg.norm(n)
+    o = np.asarray(point, float)
+    u, v, _ = frame_from_normal(n)
+
+    centre = np.array([0.0, 0.5 * aspect * section, 0.0])
+    q = centre - float((centre - o) @ n) * n          # centre projected on plane
+    span = slack * (aspect * section + 2.0 * section)
+    a = 0.5 * span
+    prof = np.array([[-a, -a], [a, -a], [a, a], [-a, a]], float)
+    return Cut(name, False, n, float(q @ n),
+               [float(q @ u), float(q @ v)], span, [prof])
+
+
+# --------------------------------------------------------- removal semantics
+def removal_groups(joint, n_cuts):
+    """Index groups making up the removal solid.
+
+    Default is one group per cut, i.e. the plain union every catalogue
+    entry has used so far. A joint may declare "removal_groups": lists of
+    0-based indices into "cuts", whose members are INTERSECTED before the
+    groups are unioned.
+
+    Grouping is needed exactly when a design vertex is convex on the
+    REMOVAL side. Cap faces must clear the stock under the overshoot rule,
+    so every design face is a side face of its prism, so all design faces
+    of one cut share a common perpendicular -- and planes sharing a common
+    perpendicular meet in a LINE, never a point. No union of prisms can
+    reach such a vertex; an intersection can.
+    """
+    g = joint.get("removal_groups")
+    if not g:
+        return [[i] for i in range(n_cuts)]
+    return [list(x) for x in g]
+
+
+def parse_groups(text, n_cuts):
+    """Parse an intersect-group string.
+
+    "0,1,4; 0,1,5" -> [[0,1,4],[0,1,5]]. Blank -> None, meaning the
+    plain union. Every cut must appear in some group, so that a
+    typo drops a cut loudly instead of silently changing the solid.
+    """
+    if not text or not str(text).strip():
+        return None
+    out = []
+    for chunk in str(text).replace("\n", ";").split(";"):
+        chunk = chunk.strip()
+        if not chunk:
+            continue
+        idx = []
+        for tok in chunk.replace(" ", ",").split(","):
+            if not tok:
+                continue
+            i = int(tok)
+            if not (0 <= i < n_cuts):
+                raise ValueError("group index %d out of range 0..%d"
+                                 % (i, n_cuts - 1))
+            idx.append(i)
+        if idx:
+            out.append(idx)
+    used = set(i for g in out for i in g)
+    missing = [i for i in range(n_cuts) if i not in used]
+    if missing:
+        raise ValueError("cut(s) %s appear in no group -- every cut must be "
+                         "used, or leave groups blank" % missing)
+    return out
+
+
+def removal_expression(joint, names, extra=()):
+    """CSG expression for the removal solid, over the given cut names."""
+    terms = []
+    for g in removal_groups(joint, len(names)):
+        mem = [names[i] for i in g]
+        terms.append(mem[0] if len(mem) == 1
+                     else "Intersection(%s)" % ", ".join(mem))
+    return "Union(%s)" % ", ".join(terms + list(extra))
 
 
 # ------------------------------------------------------------- placement
@@ -229,9 +323,10 @@ def build_repair(joint: dict, frame: dict, position: float,
 
     stock = beam_stock_cut(frame)
     all_cuts = [stock] + placed + [trim]
-    union_arg = ", ".join(c.name for c in placed + [trim])
-    kept_expr = "Difference(lhf_0, Union(%s))" % union_arg
-    pros_expr = "Intersection(lhf_0, Union(%s))" % union_arg
+    removal = removal_expression(joint, [c.name for c in placed],
+                                 extra=[trim.name])
+    kept_expr = "Difference(lhf_0, %s)" % removal
+    pros_expr = "Intersection(lhf_0, %s)" % removal
     cuts_json = [c.to_json() for c in all_cuts]
     return {
         "schema": "repair@1",
