@@ -22,7 +22,7 @@ Outputs:
 
 import sys, os
 
-REPO = r"C:\Users\tizian\workspace\projects\workshop_robarch_2026"
+REPO = r"C:\Users\avishek\workspace\projects\workshop_robarch_2026"
 SRC = os.path.join(REPO, "src")
 if SRC not in sys.path:
     sys.path.append(SRC)
