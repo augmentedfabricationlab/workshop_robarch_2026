@@ -307,6 +307,32 @@ def build_repair(joint: dict, frame: dict, position: float,
     # probe numerically (any joint, any angle, any section), so the scarf
     # face always reaches the trim with nothing chopped.
     # `blunt` > 0 then deliberately truncates the interface tip inward.
+    kind = str(joint.get("kind", "splice")).lower()
+    if kind == "patch":
+        # A patch is bounded by its own cutters. The coverage-probed trim
+        # exists to close a splice against the beam end; applied to a pocket
+        # it would remove everything beyond it, which is the opposite of the
+        # point.
+        stock = beam_stock_cut(frame)
+        all_cuts = [stock] + placed
+        removal = removal_expression(joint, [c.name for c in placed])
+        return {
+            "schema": "repair@1",
+            "parts": [
+                {"name": "kept", "cuts": [c.to_json() for c in all_cuts],
+                 "expression": "Difference(lhf_0, %s)" % removal},
+                {"name": "prosthesis", "cuts": [c.to_json() for c in all_cuts],
+                 "expression": "Intersection(lhf_0, %s)" % removal},
+            ],
+            "interface_length": iface,
+            "band": [band_lo, band_hi],
+            "position_used": position,
+            "flipped": bool(flip),
+            "scale": interface_scale,
+            "frame": frame,
+            "kind": "patch",
+        }
+
     oversize = 2.0 * max(frame["width"], frame["height"])
     edge = band_lo if flip else band_hi
     direction = -1 if flip else +1

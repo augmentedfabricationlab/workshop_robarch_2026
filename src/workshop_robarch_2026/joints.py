@@ -98,7 +98,9 @@ def check_joint(joint: dict, n: int = 40000) -> dict:
     hi_band = in_stock & (pts[:, 1] > 0.85 * L)
     kept_lo = float((kept & lo_band).sum()) / max(1, int(lo_band.sum()))
     kept_hi = float((kept & hi_band).sum()) / max(1, int(hi_band.sum()))
-    return {
+    kind = str(joint.get("kind", "splice")).lower()
+    out = {
+        "kind": kind,
         "kept_fraction": float(kept.sum()) / max(1, int(in_stock.sum())),
         "prosthesis_fraction": float(pros.sum()) / max(1, int(in_stock.sum())),
         "overlap_points": overlap,
@@ -107,9 +109,24 @@ def check_joint(joint: dict, n: int = 40000) -> dict:
         "has_both_sides": bool(kept.sum() > 0 and pros.sum() > 0),
         "kept_share_start": kept_lo,
         "kept_share_end": kept_hi,
-        "orientation_ok": bool(kept_lo > kept_hi),
-        "end_overshoot_ok": _end_overshoot_ok(joint, cutters),
     }
+    if kind == "patch":
+        # A patch is a bounded pocket: sound wood survives at BOTH ends, so the
+        # splice rules are not merely unmet, they are the wrong question.
+        # What matters instead is that the pocket is contained, and that the
+        # prosthesis can be got into it.
+        out["orientation_ok"] = True          # not applicable
+        out["end_overshoot_ok"] = True        # not applicable
+        out["containment_ok"] = bool(kept_lo > 0.999 and kept_hi > 0.999)
+        out["accepted"] = bool(out["partition_ok"] and out["has_both_sides"]
+                               and out["containment_ok"])
+    else:
+        out["orientation_ok"] = bool(kept_lo > kept_hi)
+        out["end_overshoot_ok"] = _end_overshoot_ok(joint, cutters)
+        out["containment_ok"] = True          # not applicable
+        out["accepted"] = bool(out["partition_ok"] and out["has_both_sides"]
+                               and out["orientation_ok"] and out["end_overshoot_ok"])
+    return out
 
 
 def _end_overshoot_ok(joint, cutters) -> bool:

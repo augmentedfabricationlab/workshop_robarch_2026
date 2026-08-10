@@ -1,0 +1,60 @@
+{
+ "schema": "repair-joint@1",
+ "key": "PJ2",
+ "kind": "patch",
+ "aspect": 3.0,
+ "section": 1.0,
+ "cuts": [
+  {
+   "name": "lhf_1",
+   "is_stock": false,
+   "normal": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "offset": -1.5,
+   "in_plane": [
+    0.0,
+    0.0
+   ],
+   "amount": 1.22,
+   "polysets": [
+    [
+     [
+      1.5,
+      0.13
+     ],
+     [
+      0.95,
+      0.34
+     ],
+     [
+      0.95,
+      -0.34
+     ],
+     [
+      1.5,
+      -0.13
+     ],
+     [
+      2.05,
+      -0.34
+     ],
+     [
+      2.05,
+      0.34
+     ]
+    ]
+   ],
+   "poly_signs": [
+    1
+   ]
+  }
+ ],
+ "capability": {
+  "restores": "crack arrest",
+  "carries_axial": false,
+  "depth_frac": 0.22
+ }
+}

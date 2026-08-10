@@ -1,4 +1,4 @@
-# SJ5 – Splayed Ccarf Joint
+# SJ5 – Splayed Scarf Joint
 
 DE: Schäftung · JP: sogi-tsugi · 殺継ぎ
 

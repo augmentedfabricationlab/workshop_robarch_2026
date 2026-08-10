@@ -1,158 +1,110 @@
-# SJ7 – Stoß mit Gratschnitt und keilförmigen Schwalbenschwanzzapfen
+# SJ8 – Lapped Dovetail Joint
 
-EN: Tapered dovetail tenon joint with mitered shoulders · JP: basara-tsugi · 婆娑羅継ぎ
-**Osaka Castle Otemon gate pillar splice** (大阪城大手門控柱の継手)
+DE: Schwalbenschwanzzapfen mit geradem Blatt · JP: koshi-kake-ari-tsugi · 腰掛蟻継ぎ
 
-A butt splice carrying a full-width blade whose top and bottom faces are
-tilted in **two** directions at once — along the beam and across the width —
-with the shoulders mitered at 40° in plan. The two tilts are what make the
-joint go together: it will not slide along the beam and it will not lift, but
-it slides straight in along one diagonal. First **A+B** joint in the
-catalogue.
+A half lap at mid-height whose engagement is a dovetail rather than a plain
+tongue. Part A carries a short seat and a dovetail socket cut into its upper
+half; part B carries the matching pin on the end of its upper-half tongue.
+The parts drop together vertically and then cannot be pulled apart along the
+beam. **A+B**, not "2×".
 
-## Source
+## Measured from the scan
 
-Modelled from the CAD, not from the book drawings. The Joinery publishes a
-STEP file for this joint (`thejoinery.jp`, item 73438), and every plane below
-is read directly out of it — normals and offsets, not traced pixels. The
-orthographic views on pp. 240–241 could not resolve it: two earlier attempts
-from those drawings produced a pyramid and then a wrong blade.
+Taken off p. 224. Both plan views carry the dovetail as a true outline — the
+socket in A and the pin in B — so it was measured twice, independently.
 
-Section in the source is 18 mm square; everything here is divided by 18.
+| | socket (A) | pin (B) | used |
+|---|---|---|---|
+| neck width, at the shoulder | 52 px | 53 px | **0.332** |
+| head width | 76 px | 77 px | **0.484** |
+| dovetail length | 78 px | 75 px | **0.484** |
+| flare per side | | | **0.157 → 1:6.4, 8.9°** |
 
-| plane | normal (x, y, z) | reads as |
+| | measured | used |
 |---|---|---|
-| end face | (0, 1, 0) | the butt |
-| P3 / P6 | (∓0.1300, ∓0.1607, ±1) | outer blade faces, thick side |
-| P4 / P5 | (∓0.1350, ∓0.1607, ±1) | inner blade faces, thin side |
-| miter ∓ | (∓0.840, 1, 0) | shoulders, 40.0° in plan |
+| section | 158 px | 1.0 |
+| lap plane above the bottom | 77–79 px | 0.500 — mid-height |
+| seat beyond the shoulder | 48 px | 0.304 |
+| total engagement | seat + dovetail = 126 px | 0.788 |
 
-## The relationship that defines the joint
+The two independent readings of the dovetail agree to within a pixel on all
+three dimensions, which is the tightest cross-check in the catalogue. 1:6.4 is
+a conventional timber dovetail slope.
 
-Three numbers out of the CAD, to five decimals:
-
-```
-inner blade faces   dz/dx / dz/dy  =  0.13500 / 0.16071  =  0.84000
-miter slope in plan                =  0.643192 / 0.765705 =  0.84000
-```
-
-**Exactly equal.** The blade's cross-width tilt and the shoulder miter are
-the same 0.84, which means the direction
-
-```
-d  =  (±0.7657, +0.6432, 0)      40.0° off the beam axis, in plan
-                                 sign follows the handedness, see below
-```
-
-lies **exactly** in the miter plane and **exactly** in both inner blade
-faces — d·n = 0.000000 for all three. That is the assembly direction, and it
-is a designed coincidence, not a measured near-miss.
-
-So the joint is not "impossible", it is single-directional: it cannot be
-drawn along the beam (the blade is a dovetail in y), cannot be lifted (the
-blade is a dovetail in z), and cannot be pushed sideways (the miters block
-it). It slides together on one diagonal in plan and locks in every other
-direction. The outer pair P3/P6 runs at 0.80889 rather than 0.84 — about
-0.4% off the slide direction, which reads as working clearance on the faces
-that are not meant to bear.
-
-## Correction to two earlier versions
-
-- **v1** put the miter flanks inside the slot group. That tapers the pocket
-  to a point at mid-width and renders as a pyramid.
-- **v2** made the blade full-width with a plain root, and gave an *empty*
-  insertion cone — the joint could not be assembled at all. Empty was the
-  clue that the model was wrong, not that the joint was clever.
-- **v3, this one** has the miter doing the stepping. There is no wall at
-  x = 0: the step in the end-face outline, from 0.300 down to 0.1675, is
-  bounded by the **miter plane**, which passes through the end face exactly
-  at mid-width. That single fact is what the earlier readings missed.
-
-## Handedness
-
-The stored entry is **mirrored across the width** relative to a direct read of
-the STEP — reflection in x, so the CAD's thick blade side moves from −x to
-+x... and back again. Net transform from the source file: reflection in z.
-
-This is a *reflection*, not a rotation, so the stored joint is the opposite
-hand from the Osaka Castle original. Both halves come from this one entry, so
-they mate with each other perfectly; it only matters if you ever cut one half
-from this file and the other from the CAD.
-
-Verified: the blade section at x = −0.45 now reads −0.2374 … +0.2366 where it
-previously read −0.2241 … +0.2246, i.e. the two arris sections have swapped
-sides exactly. `aspect`, the kept side at y = 0 and all four acceptance checks
-are untouched; kept 0.4587 → 0.4588, sampling noise.
-
-The slide direction mirrors with it: **d = (−0.7657, +0.6432, 0)**, still
-40.0° off the beam axis in plan, now leaning the other way.
-
-Two orientations you do **not** need a file for: `rotation` = 180 on
-`gh_repair` turns the joint about the beam axis at placement time, and
-`side` = −1 swaps which half is the prosthesis.
+Canonical placement: `aspect` 3.0, shoulder at y = 1.500, seat end at 1.804,
+socket root at 1.016. Kept fraction 0.5195 — part A is the larger half, since
+it keeps its full section past the shoulder everywhere except the socket.
 
 ## Cut structure
 
-The stored entry is the joint **reversed along the beam** — every cutting
-plane turned 180° about z. That is not a transform of the removal, because
-reversing which end is kept means complementing it. The complement of the
-five original groups reduces cleanly:
-
-```
-~R  =  ~end & ( ~mit_n | ~P3 & ~P6 ) & ( ~mit_p | ~P4 & ~P5 )
-```
-
-which expands to four groups over the same seven planes, each plane negated
-and then rotated:
+Six half-space cuts, three groups:
 
 | group | cuts | reads as |
 |---|---|---|
-| 0 | ~end, ~mit_n, ~mit_p | inside both miters, short of the butt face |
-| 1 | ~end, ~mit_n, ~P4, ~P5 | inside the −x miter, between the thin blade faces |
-| 2 | ~end, ~P3, ~P6, ~mit_p | between the thick blade faces, inside the +x miter |
-| 3 | ~end, ~P3, ~P6, ~P4, ~P5 | between both blade face pairs |
+| 0 | seat_end | everything past the seat |
+| 1 | lap_up, shoulder | the upper half beyond the shoulder |
+| 2 | lap_up, dt_root, dt_xp, dt_xn | the socket: upper half, past the root, between the two flared flanks |
 
-Seven cuts, four groups. Verified exactly: the stored `kept` equals the
-previous `prosthesis` rotated 180° about z, agreement 1.00000 over 400,000
-sampled points. Kept fraction moves 0.4588 → 0.5417, which is the same
-partition seen from the other side.
+Group 2 is why this joint needs `removal_groups`. The socket is a four-plane
+pocket sitting inside solid material, and the two flank planes converge — it
+is an intersection, and no union of prisms reaches it.
 
-## Verified against the CAD
-
-`aspect` 3.0, end face at y = 1.5, kept fraction 0.4589. Partition, both
-sides, orientation and end overshoot all pass.
-
-End-face section, model against CAD planes:
-
-| x | model | CAD |
-|---|---|---|
-| −0.45 | −0.2381 … +0.2389 | −0.2383 … +0.2392 |
-| −0.05 | −0.2901 … +0.2909 | −0.2903 … +0.2912 |
-| +0.05 | −0.1722 … +0.1717 | −0.1725 … +0.1720 |
-| +0.45 | −0.2261 … +0.2256 | −0.2265 … +0.2260 |
-
-Agreement is 0.0004, which is the sampling step. The shoulder V read back at
-y = 1.5 − 0.84·|x| to within 0.0003 at every station tested.
+Read back from the model: the pin measures 0.3353 at the neck and 0.4808 at
+the head against 0.3323 and 0.4842 measured, which is the sampling step. Part
+A is full height at the arris up to y = 1.49 and half height from 1.60, and
+half height on the centre line throughout — the socket is open at the top and
+buried in the width, which is why the elevation shows no notch.
 
 ## Structural behaviour
 
-Locked against tension along the beam, against lift, and against racking, by
-geometry alone and without a peg — the only joint in the catalogue that
-manages all three. The price is that it can only be assembled by sliding
-along one line, which means it can only be *installed* where there is room to
-move a member 40° off axis in plan. For a pillar splice in a standing gate
-that is exactly the constraint you can satisfy and almost nothing else is.
+The dovetail carries **tension along the beam**, which is what separates this
+joint from every half lap in the catalogue: SJ1 through SJ4 all need a peg for
+that, and SJ8 does not. The flanks bear directly, and 1:6.4 is shallow enough
+that the short grain at the neck is not the first thing to fail.
 
-**For the agent phase.** The insertion cone here has measure zero — a single
-ray, not a solid angle — so a sampled cone test returns 0 and looks identical
-to "impossible". The test has to be done as a linear program over the design
-normals, not by sampling, and the answer has to distinguish *empty* from
-*degenerate*. Both v2 and v3 sample to 0.00000; only one of them can be built.
+Insertion cone: a **single ray, straight up (0, 0, 1)**. Axial draw fails at
+−0.155 on the dovetail flanks; sideways fails at −0.988 on the flanks. So the
+joint has exactly one assembly motion — lower B onto A — and resists
+everything else by geometry.
+
+That makes it the natural pair to SJ7. Both lock in all but one direction;
+SJ7's one direction is a 40° diagonal in plan, SJ8's is vertical. SJ8 is far
+easier to install and correspondingly easier to lift out again, so it wants a
+peg against uplift, not against tension.
+
+**Note for the agent phase.** Like SJ7 this cone has measure zero and samples
+to 0.00000. Two joints in a row where the honest answer is "one direction
+exactly" and a sampled test reports "impossible". The Fügbarkeit check has to
+be an LP over the design normals.
+
+## Fabrication – sequence and tools
+
+Part A takes four steps (A1–A4), part B five (B1–B5), then A+B → AB.
+
+1. **Lay out both parts** – lap plane at mid-height right around; shoulder
+   lines; the dovetail centred on the width, marked from a single template so
+   socket and pin come off the same lines.
+2. **Part A: shoulder and seat** (A1–A3) – crosscut the shoulder to the lap
+   line, rip the cheek back to free the seat.
+3. **Part A: socket** (A4) – saw the two flared flanks down to the lap plane,
+   chisel the waste out between them. Blind at the bottom, open at the top.
+4. **Part B: tongue** (B1–B3) – shoulder and cheek as for a plain half lap.
+5. **Part B: pin** (B4, B5) – saw the flanks to the flare lines and pare to
+   fit. Cut the pin fat and fit to the socket, not the other way round.
+6. **Assemble** (A+B → AB) – lower B vertically into A. It will not slide in
+   along the beam; if it seems to, the flare is on backwards.
+
+Tools: try square, sliding bevel at 1:6.4, marking gauge and knife, ryoba,
+paring chisel, mallet.
+
+## Effort
+
+More than any half lap and less than SJ7. The dovetail flanks are the only
+demanding cuts, and unlike SJ7's blade they are open and visible while sawing.
+The neck is the fragile part in handling before assembly.
 
 ## Provenance
 
-"Timber Joints", chapter Splicing Joints, pp. 240–241. Japanese basara-tsugi,
-婆娑羅継ぎ; German Stoß mit Gratschnitt und keilförmigen
-Schwalbenschwanzzapfen. From the pillar splices of the Otemon gate at Osaka
-Castle. Geometry from the STEP model at thejoinery.jp item 73438. Parts A
-and B, not "2×".
+"Timber Joints", chapter Splicing Joints, pp. 224–225. Japanese
+koshi-kake-ari-tsugi, 腰掛蟻継ぎ; German Schwalbenschwanzzapfen mit geradem
+Blatt. Parts A and B, not "2×".
