@@ -37,8 +37,14 @@ Outputs:
     report                 acceptance test + per-cutter diagnostics
 """
 import sys, os
+import getpass
 
-REPO = r"C:\Users\tizian\workspace\projects\workshop_robarch_2026"
+
+username = getpass.getuser()
+USER_FOLDER = os.path.abspath(os.path.join("C:/Users/", username))
+REPO = os.path.abspath(os.path.join(USER_FOLDER, "workspace/projects/workshop_robarch_2026/"))
+
+#REPO = r"C:\Users\tizian\workspace\projects\workshop_robarch_2026"
 SRC = os.path.join(REPO, "src")
 if SRC not in sys.path:
     sys.path.append(SRC)
