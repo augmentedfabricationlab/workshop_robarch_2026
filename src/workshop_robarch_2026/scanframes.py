@@ -21,8 +21,8 @@ def mesh_to_scanframes(mesh, robot_base_frame, scan_size=0.1, boustrophedon=True
     ----------
     mesh : Rhino.Geometry.Mesh
     robot_base_frame : compas.geometry.Frame
-        Reference used so every frame's X axis points away from the robot
-        base, keeping X/Y consistent across the whole grid.
+        Reference used so every frame's X axis is oriented to match the
+        robot base's Y axis, keeping X/Y consistent across the whole grid.
     scan_size : float
         Target spacing between frames / scan footprint size, in the mesh's
         units (e.g. 0.1 for 10x10cm if the model is in meters).
@@ -40,7 +40,7 @@ def mesh_to_scanframes(mesh, robot_base_frame, scan_size=0.1, boustrophedon=True
     """
     fit_plane = rg.Plane.FitPlaneToPoints(mesh.Vertices.ToPoint3dArray())[1]
     box = rg.Box(fit_plane, mesh)
-    rxvec = Vector.from_start_end(robot_base_frame.point, point_to_compas(box.Center)).unitized()
+    rxvec = robot_base_frame.yaxis
 
     u_count = max(1, int(round(box.X.Length / scan_size)))
     v_count = max(1, int(round(box.Y.Length / scan_size)))
@@ -59,10 +59,9 @@ def mesh_to_scanframes(mesh, robot_base_frame, scan_size=0.1, boustrophedon=True
 
             # negate so Z looks down into the surface, opposite the outward mesh normal
             normal = -vector_to_compas(mesh.NormalAt(mesh_pt)).unitized()
-            xaxis = vector_to_compas(box.Plane.XAxis)
-            xaxis = (xaxis - normal.scaled(xaxis.dot(normal))).unitized()
-            if xaxis.dot(rxvec) < 0:
-                xaxis = -xaxis
+            # project the robot base's -Y onto the local tangent plane, so X follows
+            # the surface curvature while still looking the same general direction
+            xaxis = (rxvec - normal.scaled(rxvec.dot(normal))).unitized()
             yaxis = Vector(*cross_vectors(normal, xaxis))
 
             row.append(Frame(point_to_compas(mesh_pt.Point), xaxis, yaxis))
