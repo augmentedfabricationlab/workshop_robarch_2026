@@ -26,7 +26,25 @@ Outputs:
 """
 import sys, os, math, random
 
-REPO = r"C:\Users\tizian\workspace\projects\workshop_robarch_2026"
+def _repo_from_component():
+    """Find the repository containing the component loaded by Grasshopper."""
+    override = os.environ.get("ROBARCH_REPO")
+    component_file = globals().get("_p") or globals().get("__file__")
+    if override:
+        repo = os.path.abspath(os.path.expanduser(override))
+    elif component_file:
+        repo = os.path.abspath(
+            os.path.join(os.path.dirname(component_file), "..", "..")
+        )
+    else:
+        raise RuntimeError("Cannot locate repo; set the ROBARCH_REPO environment variable")
+    package = os.path.join(repo, "src", "workshop_robarch_2026")
+    if not os.path.isdir(package):
+        raise RuntimeError("Repository package not found at: {}".format(package))
+    return repo
+
+
+REPO = _repo_from_component()
 SRC = os.path.join(REPO, "src")
 if SRC not in sys.path:
     sys.path.append(SRC)
