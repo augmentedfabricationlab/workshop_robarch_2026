@@ -1,0 +1,36 @@
+# --- Markdown / highlighting -------------------------------------------------
+# kramdown + rouge are the only combination GitHub Pages supports.
+# (The foc_2026 config still declared redcarpet/pygments, which GitHub silently
+#  ignores — keeping it correct here avoids surprises in local builds.)
+markdown:         kramdown
+highlighter:      rouge
+kramdown:
+  input:          GFM
+
+# --- Permalinks --------------------------------------------------------------
+permalink:        pretty
+
+# --- Setup -------------------------------------------------------------------
+title:            Actionable Repair
+tagline:          'ROB|ARCH 2026 — Workshop 04'
+description:      'Workshop'
+
+baseurl:          "/workshop_robarch_2026"   # repository name
+url:              "https://augmentedfabricationlab.github.io"
+
+github:
+  repo:           https://github.com/augmentedfabricationlab/workshop_robarch_2026
+
+# --- Cross-links to the sibling workshop -------------------------------------
+# Rendered in the sidebar under "Related". Add further workshops here.
+related:
+  - title:        Conference page
+    url:          https://robarch2026.org/workshop-04/
+  - title:        Actionable Repair via Multimodal AI (FoC 2026)
+    url:          https://augmentedfabricationlab.github.io/workshop_foc_2026/
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor

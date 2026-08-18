@@ -1,0 +1,48 @@
+/* Small additions on top of poole/hyde. Keep this file for local tweaks so the
+   vendored theme files stay untouched and updatable. */
+
+.sidebar-nav-heading {
+  margin: 1.2rem 0 .2rem;
+  font-size: .8rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  opacity: .6;
+}
+
+/* Program / schedule tables */
+.page table,
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: .9rem;
+}
+.page table th,
+.page table td {
+  padding: .4rem .6rem;
+  border-bottom: 1px solid #e5e5e5;
+  text-align: left;
+  vertical-align: top;
+}
+.page table th { border-bottom-width: 2px; }
+
+/* Figures */
+figure { margin: 0 0 1.5rem; }
+figure img { width: 100%; display: block; }
+figcaption {
+  font-size: .85rem;
+  color: #767676;
+  margin-top: .4rem;
+}
+
+/* Status pill for provisional information */
+.tbd {
+  display: inline-block;
+  padding: 0 .4em;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-size: .75em;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  opacity: .7;
+}
