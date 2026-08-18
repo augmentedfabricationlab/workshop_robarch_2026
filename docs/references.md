@@ -1,7 +1,7 @@
 ---
 layout: page
 title: References
-order: 60
+order: 50
 ---
 
 ### Repair: Theory, Ethics, and Culture
@@ -108,17 +108,3 @@ Rein, Tizian. 2025. *From Structure to Action: Machine Reasoning and the Logics 
 
 ### Cultural and Literary Reference
 Saint-Exupéry, Antoine de. 1943. *Le Petit Prince*. New York: Reynal & Hitchcock.
-
-### Historic Timber Structures and Joinery
-Gerner, Manfred. 1992. *Handwerkliche Holzverbindungen der Zimmerer*. Stuttgart: Deutsche Verlags-Anstalt.
-
-Zwerger, Klaus. 2012. *Wood and Wood Joints: Building Traditions of Europe, Japan and China*. 2nd ed. Basel: Birkhäuser.
-
-Sumiyoshi, Torashichi, and Gengo Matsui. 1991. *Wood Joints in Classical Japanese Architecture*. Tokyo: Kajima Institute Publishing.
-
-Charles, F. W. B., and Mary Charles. 1984. *Conservation of Timber Buildings*. London: Hutchinson.
-
-### Robotic Fabrication and AI in Construction
-Menges, Achim, and Jan Knippers, eds. 2021. *Architecture Research Building: ICD/ITKE 2010–2020*. Basel: Birkhäuser.
-
-Gramazio, Fabio, and Matthias Kohler. 2014. *The Robotic Touch: How Robots Change Architecture*. Zurich: Park Books.
