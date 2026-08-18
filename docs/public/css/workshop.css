@@ -1,20 +1,54 @@
 /* Local overrides on top of poole/hyde. The vendored theme files stay untouched. */
 
-/* Times New Roman everywhere */
+/* --- Type ----------------------------------------------------------------- */
 html,
 .sidebar,
 .pagination {
   font-family: "Times New Roman", Times, serif;
 }
 
-/* Sidebar heading for the cross-links */
+/* --- Accent: wood ---------------------------------------------------------- */
+/* Replaces the theme's blue. One value to change if you want it warmer/darker. */
+:root {
+  --accent: #8f5536;        /* mid warm timber brown */
+  --accent-dark: #6f4128;   /* hover / active */
+}
+
+a,
+.theme-base-0e .sidebar a,
+.theme-base-0e .sidebar a:hover,
+.theme-base-0e .sidebar a:active,
+.theme-base-0e .content a,
+.theme-base-0e .related-posts li a:hover,
+.theme-base-0e .related-posts li a:active {
+  color: var(--accent);
+}
+
+.theme-base-0e .sidebar a:hover,
+.theme-base-0e .content a:hover {
+  color: var(--accent-dark);
+}
+
+.sidebar-nav-item.active {
+  color: var(--accent-dark);
+  font-weight: bold;
+}
+
+/* --- Sidebar -------------------------------------------------------------- */
 .sidebar-nav-heading {
   margin: 1.2rem 0 .2rem;
   font-size: .8rem;
   opacity: .6;
 }
 
-/* Program table */
+.sidebar-credit {
+  font-size: .65rem;
+  line-height: 1.4;
+  color: #999;
+  margin-top: 1.5rem;
+}
+
+/* --- Content -------------------------------------------------------------- */
 .page table {
   width: 100%;
   border-collapse: collapse;
@@ -23,7 +57,7 @@ html,
 .page table th,
 .page table td {
   padding: .3rem .6rem .3rem 0;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #d8d2cc;
   text-align: left;
   vertical-align: top;
 }
