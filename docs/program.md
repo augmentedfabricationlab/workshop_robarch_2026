@@ -12,7 +12,7 @@ Three days, structured as one loop repeated at increasing resolution: **read the
 
 | Time | Phase |
 |------|-------|
-| 09:30–11:00 | Introduction: introduction, "damage as prompt", workflow |
+| 09:30–11:00 | Introduction: motivation, "damage as prompt", workflow |
 | 11:00–12:00 | Tour of the wall and mobile robot |
 | 12:00–13:00 | LUNCH BREAK
 | 13:00–14:00 | Capture: using the web-based app, producting photographs, notes, measurements, scans |

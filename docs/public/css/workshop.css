@@ -29,6 +29,12 @@ a,
   color: var(--accent-dark);
 }
 
+/* Hover in the sidebar menu: underline, not the theme's strike-through. */
+.theme-base-0e .sidebar a:hover,
+.theme-base-0e .sidebar a:active {
+  text-decoration: underline;
+}
+
 .sidebar-nav-item.active {
   color: var(--accent-dark);
   font-weight: bold;
