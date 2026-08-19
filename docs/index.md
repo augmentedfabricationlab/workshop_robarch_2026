@@ -23,6 +23,10 @@ As a case study, participants engage with the repair of a curated set of damaged
 
 ## What you need
 
-A laptop with **Rhino 8**. Everything runs in-process in Rhino 8 CPython, so there is no server, no worker process, and nothing else to install.
+A laptop with **Rhino 8** and **Grasshopper**.
+A smartphone with a **stable internet connection**.
+
+The repository will be available for you in the morning of the workshop.
 
 Repository: [workshop_robarch_2026]({{ site.github.repo }})
+Web-Based Application: [Repair Workspace](https://repair-workspace.vercel.app/)
