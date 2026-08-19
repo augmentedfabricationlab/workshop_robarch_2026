@@ -118,3 +118,4 @@ gemini_api_key*
 # OS cruft
 .DS_Store
 Thumbs.db
+docs/agentic_joinery.md
