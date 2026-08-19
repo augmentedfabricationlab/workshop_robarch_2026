@@ -65,3 +65,10 @@ a,
 figure { margin: 0 0 1.5rem; }
 figure img { width: 100%; display: block; }
 figcaption { font-size: .85rem; color: #767676; margin-top: .4rem; }
+
+/* --- Schriftfarbe --------------------------------------------------------- */
+body,
+h1, h2, h3, h4, h5, h6,
+strong {
+  color: #F8CBAD;
+}
