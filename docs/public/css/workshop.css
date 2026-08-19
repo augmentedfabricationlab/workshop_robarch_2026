@@ -71,3 +71,95 @@ a,
 figure { margin: 0 0 1.5rem; }
 figure img { width: 100%; display: block; }
 figcaption { font-size: .85rem; color: #767676; margin-top: .4rem; }
+/* --- Mobile menu ---------------------------------------------------------- */
+/* Below 48em the sidebar becomes a drawer that slides in from the left.
+   State lives in #sidebar-checkbox (see _layouts/default.html), no JS.
+   From 48em up nothing here applies and hyde's fixed column takes over. */
+
+.sidebar-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.sidebar-toggle,
+.sidebar-backdrop {
+  display: none;
+}
+
+@media (max-width: 47.99em) {
+
+  /* Hamburger button, floating over the content in the top left corner.
+     Sized in px on purpose: the root font-size changes across breakpoints,
+     and the three bars need to stay evenly spaced. */
+  .sidebar-toggle {
+    display: block;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 30;
+    width: 36px;
+    height: 36px;
+    padding: 10px 8px;
+    box-sizing: border-box;
+    background-color: rgb(229, 229, 229);
+    border: 1px solid #cfc9c3;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  /* One 2px bar, repeated twice more by the box-shadow: 0 / 6 / 12 px. */
+  .sidebar-toggle::before {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: var(--accent-dark);
+    box-shadow: 0 6px 0 var(--accent-dark), 0 12px 0 var(--accent-dark);
+  }
+
+  /* Drawer */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 20;
+    width: 15rem;
+    max-width: 80vw;
+    padding: 2rem .5rem;
+    text-align: left;
+    overflow-y: auto;
+    background-color: rgb(229, 229, 229);
+    box-shadow: 2px 0 12px rgba(0, 0, 0, .18);
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+  }
+  #sidebar-checkbox:checked ~ .sidebar {
+    transform: translateX(0);
+  }
+
+  /* Tap anywhere outside the drawer to close it. */
+  #sidebar-checkbox:checked ~ .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, .35);
+  }
+
+  .sidebar-about h1 {
+    font-size: 1.6rem;
+  }
+
+  /* Room for the button above the page title. */
+  .content {
+    padding-top: 3.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar { transition: none; }
+}

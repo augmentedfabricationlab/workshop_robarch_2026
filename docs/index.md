@@ -24,6 +24,7 @@ As a case study, participants engage with the repair of a curated set of damaged
 ## What you need
 
 A laptop with **Rhino 8** and **Grasshopper**.
+A **GitHub Account**.
 A smartphone with a **stable internet connection**.
 
 The repository will be available for you in the morning of the workshop.

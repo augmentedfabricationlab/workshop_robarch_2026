@@ -5,7 +5,17 @@
 
   <body class="theme-base-0e">
 
+    {% comment %}
+      Mobile menu: CSS-only toggle. The checkbox holds the open/closed state,
+      the two labels (button + backdrop) flip it. No JavaScript involved.
+      Both are hidden from >= 48em, where the sidebar is a fixed column again.
+    {% endcomment %}
+    <input type="checkbox" id="sidebar-checkbox" class="sidebar-checkbox">
+    <label for="sidebar-checkbox" class="sidebar-toggle" aria-label="Toggle menu"></label>
+
     {% include sidebar.html %}
+
+    <label for="sidebar-checkbox" class="sidebar-backdrop" aria-hidden="true"></label>
 
     <div class="content container">
       {{ content }}
