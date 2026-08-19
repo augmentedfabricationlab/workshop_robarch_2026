@@ -4,10 +4,6 @@ title: Team
 order: 40
 ---
 
-## Technical University of Munich, Professorship of Digital Fabrication
-
-
-
 <div style="display:flex; align-items:center; gap:20px; margin-bottom:30px;">
   <img src="{{ '/images/team-tr.jpg' | relative_url }}" alt="Tizian Rein" style="width:150px; height:150px; flex-shrink:0; border-radius:50%; object-fit:cover;">
   <div>
