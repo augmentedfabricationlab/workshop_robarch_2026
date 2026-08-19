@@ -10,7 +10,7 @@ html,
 /* --- Accent: wood ---------------------------------------------------------- */
 /* Replaces the theme's blue. One value to change if you want it warmer/darker. */
 :root {
-  --accent: #8f5536;        /* mid warm timber brown */
+  --accent: #FFED29;        /* mid warm timber brown */
   --accent-dark: #6f4128;   /* hover / active */
 }
 
