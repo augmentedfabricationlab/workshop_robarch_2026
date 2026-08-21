@@ -49,7 +49,10 @@ def test_sj4_needs_intersect_groups():
     j = joints.load_joint(ROOT, "SJ4")
     assert j.get("removal_groups"), "SJ4 must declare removal_groups"
     names = ["lhf_%d" % (i + 1) for i in range(len(j["cuts"]))]
-    assert kernel.removal_expression(j, names).count("Intersection") == 4
+    assert (
+        kernel.removal_expression(j, names).count("Intersection")
+        == len(j["removal_groups"])
+    )
 
     flat = dict(j)
     flat.pop("removal_groups")

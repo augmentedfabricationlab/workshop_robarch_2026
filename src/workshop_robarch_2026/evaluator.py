@@ -146,6 +146,57 @@ def _boolean_difference(a, b, tol):
     return list(out)
 
 
+def _contained(inner, outer, tol):
+    """Conservative solid containment fallback for failed Rhino Booleans."""
+    vertices = list(inner.Vertices)
+    return bool(vertices) and all(
+        outer.IsPointInside(vertex.Location, float(tol), False) for vertex in vertices
+    )
+
+
+def _pairwise_intersection(left, right, tol):
+    """Intersect Breps pairwise; collective Rhino Booleans are fragile here."""
+    rg = _rg()
+    pieces, failures = [], 0
+    for first in left:
+        first_box = first.GetBoundingBox(True)
+        for second in right:
+            # RhinoCommon's BoundingBox has no `Intersects`; the overlap test is
+            # the static BoundingBox.Intersection, which returns an invalid box
+            # when the two do not meet.
+            overlap = rg.BoundingBox.Intersection(
+                first_box, second.GetBoundingBox(True)
+            )
+            if not overlap.IsValid:
+                continue
+            out = rg.Brep.CreateBooleanIntersection(first, second, tol)
+            if out:
+                pieces.extend(list(out))
+                continue
+            if _contained(first, second, tol):
+                pieces.append(first.DuplicateBrep())
+                continue
+            if _contained(second, first, tol):
+                pieces.append(second.DuplicateBrep())
+                continue
+            # Splitting often succeeds where a coincident-face Boolean declines.
+            split = list(first.Split(second, tol) or [])
+            inside = []
+            for fragment in split:
+                mass = rg.VolumeMassProperties.Compute(fragment)
+                if mass and second.IsPointInside(mass.Centroid, tol, False):
+                    inside.append(fragment)
+            if inside:
+                pieces.extend(inside)
+            else:
+                failures += 1
+    if pieces:
+        return _boolean_union(pieces, tol)
+    if failures:
+        raise ValueError("pairwise intersection and split fallback failed")
+    return []
+
+
 def evaluate_part(part: dict, tol: float = TOL) -> list:
     """One part -> list of Breps (usually one solid)."""
     rg = _rg()
@@ -189,22 +240,11 @@ def evaluate_part(part: dict, tol: float = TOL) -> list:
             cutters = []
             for ch in children[1][1]:
                 cutters += walk(ch)
-            merged = rg.Brep.CreateBooleanUnion(cutters, tol) \
-                if len(cutters) > 1 else cutters
-            if merged:
-                out = rg.Brep.CreateBooleanIntersection(base, list(merged), tol)
-                if out and len(list(out)) > 0:
-                    return list(out)
-            pieces = []
-            for ch in children[1][1]:
-                nm = ch if isinstance(ch, str) else "?"
-                out = rg.Brep.CreateBooleanIntersection(base, walk(ch), tol)
-                if out is None:
-                    raise ValueError("intersection stock x %s FAILED" % nm)
-                pieces += list(out)
+            merged = rg.Brep.CreateBooleanUnion(cutters, tol) if len(cutters) > 1 else cutters
+            pieces = _pairwise_intersection(base, list(merged) if merged else cutters, tol)
             if not pieces:
                 raise ValueError("intersection produced nothing")
-            return _boolean_union(pieces, tol)
+            return pieces
 
         if op == "Union":
             acc = []
@@ -214,7 +254,7 @@ def evaluate_part(part: dict, tol: float = TOL) -> list:
         if op == "Intersection":
             acc = walk(children[0])
             for ch in children[1:]:
-                out = rg.Brep.CreateBooleanIntersection(acc, walk(ch), tol)
+                out = _pairwise_intersection(acc, walk(ch), tol)
                 if not out:
                     raise ValueError("boolean intersection failed (tolerance?)")
                 acc = list(out)
