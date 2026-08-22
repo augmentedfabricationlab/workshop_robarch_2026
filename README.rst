@@ -56,11 +56,14 @@ The following are to be needed for the workshop:
 * Rhino 8 (If you do not have Rhino licenses, you can download a free trial from the Rhino website).
 * Python 3.9 installed in Rhinocode environment. To do this Run ``ScriptEditor`` command in Rhino 8 and it should install the Python in the required location
 * Check the folder if it exists: ``C:\Users\<username>\.rhinocode\py39-rh8``. If it does not exist, that means python is not installed. Ask the instructors or your peers for troubleshooting.
-* You need to clone certain repositories from GitHub to your local machine.
+* You need to clone certain repositories from GitHub to your local machine. In your ``C:\Users\<username>`` folder, create a new folder called ``workspace`` and another subfolder called ``projects``. Then clone the following repositories into the ``projects`` folder: 
 
     * `workshop_robarch_2026 <https://github.com/augmentedfabricationlab/workshop_robarch_2026>`_
-    
-*
+    * `assembly_information_model <https://github.com/augmentedfabricationlab/assembly_information_model>`_
+    * `ur_fabrication_control <https://github.com/augmentedfabricationlab/ur_fabrication_control>`_
+    * `fabrication_manager <https://github.com/augmentedfabricationlab/fabrication_manager>`_
+    * `mobile_robot_control <https://github.com/augmentedfabricationlab/mobile_robot_control>`_
+
 
 
 
