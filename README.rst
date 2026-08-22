@@ -70,9 +70,10 @@ The following are to be needed for the workshop:
 Installation
 ------------
 * Open Rhino 8 and run the ``ScriptEditor`` command.
+
 * In the Script Editor window, go to Tools > Options > and the cloned git repositories ´´src´´ folders in the Module Search Paths.
 .. image:: docs/images/ScriptEditor.png
-        
+    :width: 400px        
     :alt: Script Editor Options
 
 * Go to ``C:\Users\<username>\.rhinocode\py39-rh8`` folder. Run the following command in the command prompt to install the required dependencies:
@@ -95,7 +96,7 @@ Installation
     print(compas_robots.__version__)
 
 .. image:: docs/images/COMPAS_Version.png
-    :width: 200px
+    :width: 400px
     :alt: Script Editor Options
 
 
