@@ -93,16 +93,17 @@ Installation
 
 * Once all dependencies have been installed, run the following Python code in the Script Editor to verify that the installation was successful:
 
-  .. code-block:: python
-        #! python 3
-        import compas
-        import compas_fab
-        import compas_robots
-    
-        print(compas.__version__)
-        print(compas_fab.__version__)
-        print(compas_robots.__version__)    
+  
+.. code-block:: python
 
+    #! python 3
+    import compas
+    import compas_fab
+    import compas_robots
+
+    print(compas.__version__)
+    print(compas_fab.__version__)
+    print(compas_robots.__version__)
 
 .. image:: docs/images/COMPAS_Version.png
     :width: 400px
