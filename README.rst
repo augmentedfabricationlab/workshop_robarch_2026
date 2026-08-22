@@ -74,7 +74,7 @@ Installation
 .. image:: docs/images/ScriptEditor.png
     :alt: Script Editor Options
 
-*Go to ``C:\Users\<username>\.rhinocode\py39-rh8`` folder. Run the following command in the command prompt to install the required dependencies:
+Go to ``C:\Users\<username>\.rhinocode\py39-rh8`` folder. Run the following command in the command prompt to install the required dependencies:
     * ``C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install -r C:\Users\<username>\workspace\projects\assembly_information_model\src``
     * Similarly install COMPAS, COMPAS FAB and COMPAS Robots using the following commands:
         * ``C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install compas ==2.15.0``
