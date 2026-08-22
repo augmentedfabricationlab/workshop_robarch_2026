@@ -30,17 +30,11 @@ Project Website
 -------------
 We have created a website for this workshop. This can be found at: `https://augmentedfabricationlab.github.io/workshop_robarch_2026/ <https://augmentedfabricationlab.github.io/workshop_robarch_2026/>`_. We will regularly update the website with information about the workshop, including schedules, materials, and resources.
 
-Main features
+.. Main features
 -------------
 
-* feature
-* feature
-* more features
 
-**workshop_robarch_2026** runs on Python x.x and x.x.
-
-
-Documentation
+.. Documentation
 -------------
 
 .. Explain how to access documentation: API, examples, etc.
@@ -109,7 +103,7 @@ Installation
     :alt: Script Editor Options
 
 
-Contributing
+.. Contributing
 ------------
 
 Make sure you setup your local development environment correctly:
@@ -137,7 +131,7 @@ command line to ease recurring operations:
 For more details, check the `Contributor's Guide <CONTRIBUTING.rst>`_.
 
 
-Releasing this project
+.. Releasing this project
 ----------------------
 
 .. Write releasing instructions here
@@ -149,4 +143,7 @@ Releasing this project
 Credits
 -------------
 
-This package was created by Begum Saral <saral.begum@gmail.com> `@begums <https://github.com/begums>`_ at `@augmentedfabricationlab <https://github.com/augmentedfabricationlab>`_
+This repository was created by Tizian Rein (`@tizianrein <https://github.com/tizianrein>`_),
+Begum Saral (`@begums <https://github.com/begums>`_), and
+Avishek Das (`@a-vi-shek <https://github.com/a-vi-shek>`_)
+at the `Augmented Fabrication Lab <https://github.com/augmentedfabricationlab>`_.
