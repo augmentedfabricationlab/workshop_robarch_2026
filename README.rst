@@ -26,8 +26,7 @@ You will engage in hands-on activities to learn about innovative repair methods 
 
 Project Website
 -------------
-We have created a website for this workshop. This can be found at: `https://augmentedfabricationlab.github.io/workshop_robarch_2026/ <https://augmentedfabricationlab.github.io/workshop_robarch_2026/>`_
-We will regularly update the website with information about the workshop, including schedules, materials, and resources.
+We have created a website for this workshop. This can be found at: `https://augmentedfabricationlab.github.io/workshop_robarch_2026/ <https://augmentedfabricationlab.github.io/workshop_robarch_2026/>`_. We will regularly update the website with information about the workshop, including schedules, materials, and resources.
 
 Main features
 -------------
@@ -50,7 +49,20 @@ Documentation
 Requirements
 ------------
 
-.. Write requirements instructions here
+Participants for this workshop should have a basic understanding of Rhino, Grasshopper, and Python programming. 
+
+The following are to be needed for the workshop:
+
+* Rhino 8 (If you do not have Rhino licenses, you can download a free trial from the Rhino website).
+* Python 3.9 installed in Rhinocode environment. To do this Run ``ScriptEditor`` command in Rhino 8 and it should install the Python in the required location
+* Check the folder if it exists: ``C:\Users\<username>\.rhinocode\py39-rh8``. If it does not exist, that means python is not installed. Ask the instructors or your peers for troubleshooting.
+* You need to clone certain repositories from GitHub to your local machine.
+
+    * `workshop_robarch_2026 <https://github.com/augmentedfabricationlab/workshop_robarch_2026>`_
+    
+*
+
+
 
 
 Installation
