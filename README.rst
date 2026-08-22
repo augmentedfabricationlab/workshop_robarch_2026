@@ -19,7 +19,6 @@ Actionable Repair: RobArch Workshop 2026
 
 .. Write project description
 
-**Workshop Repair** ...
 
 
 Introduction
