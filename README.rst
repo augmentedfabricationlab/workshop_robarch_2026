@@ -71,19 +71,31 @@ Installation
 ------------
 * Open Rhino 8 and run the ``ScriptEditor`` command.
 
-* In the Script Editor window, go to Tools > Options > and the cloned git repositories ´´src´´ folders in the Module Search Paths.
-.. image:: docs/images/ScriptEditor.png
-    :width: 400px        
-    :alt: Script Editor Options
+* In the Script Editor window, go to **Tools > Options** and add the cloned Git repositories' ``src`` folders to the **Module Search Paths**.
 
-* Go to ``C:\Users\<username>\.rhinocode\py39-rh8`` folder. Run the following command in the command prompt to install the required dependencies:
-    * ``C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install -r C:\Users\<username>\workspace\projects\assembly_information_model\src``
-    * Similarly install COMPAS, COMPAS FAB and COMPAS Robots using the following commands:
-        * ``C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install compas ==2.15.0``
-        * ``C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install compas_fab ==1.1.0``
-        * ``C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install compas_robots ==0.6.0``
-* Once you have installed the dependencies, run the following python code in the Script Editor to ensure everything has been installed correctly:
+  .. image:: docs/images/ScriptEditor.png
+      :width: 400px
+      :alt: Script Editor Options
 
+* Navigate to the ``C:\Users\<username>\.rhinocode\py39-rh8`` folder and run the following command in a Command Prompt to install the project dependencies:
+
+  .. code-block:: bash
+
+      C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install -r C:\Users\<username>\workspace\projects\assembly_information_model\src
+
+* Install COMPAS, COMPAS FAB, and COMPAS Robots using the following commands:
+
+  .. code-block:: bash
+
+      C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install compas==2.15.0
+      C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install compas_fab==1.1.0
+      C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install compas_robots==0.6.0
+
+* Once all dependencies have been installed, run the following Python code in the Script Editor to verify that the installation was successful:
+
+  .. code-block:: python
+
+      # Verification code goes here
 .. code-block:: python
 
     #! python 3
