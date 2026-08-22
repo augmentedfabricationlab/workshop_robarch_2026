@@ -102,6 +102,11 @@ Installation
     :width: 400px
     :alt: Script Editor Options
 
+*  Download the latest Cockroach plug-in from Food4Rhino: `Cockroach for Rhino <https://www.food4rhino.com/en/app/cockroach>`_.
+
+Ready for the Workshop
+------------
+Once you are done with these steps, you should be ready for the workshop. If you encounter any issues during the installation process, please reach out to the instructors or your peers for assistance.
 
 .. Contributing
 .. ------------
