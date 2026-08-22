@@ -1,5 +1,5 @@
 ============================================================
-workshop_robarch_2026: RobArch Workshop 2026
+Actionable Repair: RobArch Workshop 2026
 ============================================================
 
 .. start-badges
@@ -13,6 +13,9 @@ workshop_robarch_2026: RobArch Workshop 2026
     :alt: Travis CI
 
 .. end-badges
+
+.. image:: docs/images/title_image.jpg
+    :alt: Workshop Banner Image
 
 .. Write project description
 
