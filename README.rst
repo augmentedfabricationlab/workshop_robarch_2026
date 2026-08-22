@@ -21,6 +21,12 @@ workshop_robarch_2026: RobArch Workshop 2026
 
 Main features
 -------------
+Welcome the Augmented Repair wokshop at ROB|ARCH 2026. This workshop will explore the intersection of robotics, architecture, and repair techniques.
+You will engage in hands-on activities to learn about innovative repair methods using LLM-based information, robotic tools, and manual and digital fabrication technologies.
+
+
+Main features
+-------------
 
 * feature
 * feature
