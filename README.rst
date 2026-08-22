@@ -67,14 +67,33 @@ The following are to be needed for the workshop:
     * `fabrication_manager <https://github.com/augmentedfabricationlab/fabrication_manager>`_
     * `mobile_robot_control <https://github.com/augmentedfabricationlab/mobile_robot_control>`_
 
-
-
-
-
 Installation
 ------------
+* Open Rhino 8 and run the ``ScriptEditor`` command.
+* In the Script Editor window, go to Tools > Options > and the cloned git repositories ´´src´´ folders in the Module Search Paths.
+.. image:: docs/images/ScriptEditor.png
+    :alt: Script Editor Options
 
-.. Write installation instructions here
+*Go to ``C:\Users\<username>\.rhinocode\py39-rh8`` folder. Run the following command in the command prompt to install the required dependencies:
+    * ``C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install -r C:\Users\<username>\workspace\projects\assembly_information_model\src``
+    * Similarly install COMPAS, COMPAS FAB and COMPAS Robots using the following commands:
+        * ``C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install compas ==2.15.0``
+        * ``C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install compas_fab ==1.1.0``
+        * ``C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install compas_robots ==0.6.0``
+* Once you have installed the dependencies, run the following python code in the Script Editor to ensure everything has been installed correctly:
+.. code-block:: python
+
+    #! python 3
+    import compas
+    import compas_fab
+    import compas_robots
+
+    print(compas.__version__)
+    print(compas_fab.__version__)
+    print(compas_robots.__version__)
+
+.. image:: docs/images/COMPAS_Version.png
+    :alt: Script Editor Options
 
 
 Contributing
