@@ -102,7 +102,7 @@ Installation
     :width: 400px
     :alt: Script Editor Options
 
-*  Download the latest Cockroach plug-in from Food4Rhino: `Cockroach for Rhino <https://www.food4rhino.com/en/app/cockroach>`_.
+*  Download the latest Cockroach plug-in from Food4Rhino: `Cockroach for Rhino <https://www.food4rhino.com/en/app/cockroach>`_. We will use this plugin in Grasshopper to work with pointclouds.
 
 Ready for the Workshop
 ------------
