@@ -1,90 +1,97 @@
-# SJ5 – Splayed Scarf Joint
+# SJ5 – Undersquinted stop-splayed cogged scarf joint
 
-DE: Schäftung · JP: sogi-tsugi · 殺継ぎ
+DE: schräges Hakenblatt mit schräger Brüstung
+JP: ryaku-kama-tsugi (sogi-tsuki) · 略鎌継ぎ（殺付）
 
-A single flat plane raked through the whole section. No lap, no shoulder, no
-step — the entire joint is one saw cut, and the two halves are identical
-("2×"). It is the only entry in this group that is not a *Blatt* at all: a
-scarf, not a lap.
+A scarf whose splay is *stopped* at both ends by short shoulders instead of
+running out to a feather edge, and interrupted at mid-length by a **cog** — a
+square step in the seam. The shoulders and the cog face are **undersquinted**:
+leaned rather than square to the axis, so the two halves wedge together across
+the depth as they are drawn up.
 
-## Measured from the scan
+Three things are happening at once, and each is one face:
 
-Taken off p. 156. The plan view is the reliable measurement here: the scarf
-meets the near face and the far face at two clean vertical lines, one solid
-and one hidden, and the distance between them is the rake directly.
+- the **splay** carries the compression over a long raked bearing
+- the **cog** stops the halves sliding past one another along the member
+- the **undersquint** stops them separating across the section
 
-| | measured | used |
-|---|---|---|
-| section, elevation / plan | 159 / 157 px | 1.0 |
-| scarf stations in plan | x = 1050 (dashed) and 1523 (solid) | |
-| scarf run | 473 px | |
-| **rake** | **473 / 158 = 2.994** | **3.000** |
-| rake angle to the beam axis | | **18.4°** |
-| across the width | both stations dead vertical | uniform, no splay in plan |
+## How it is written here
 
-Worth recording how this was measured, because the obvious route is worse.
-Fitting the diagonal in the elevation gives 3.136 with an rms of 17.6 px —
-the grain lines contaminate the fit and the scan sits about 0.7° off square,
-which the long diagonal amplifies. The two plan stations are crisp (0.99 and
-0.30 column coverage) and immune to both. The plan reading is the one to
-trust.
+Six planes, three directions. The splay is one direction used twice, at two
+offsets — the same rake below and above the cog, which is what makes the step
+read as a step rather than as two unrelated cuts. The shoulders and the cog
+face share a second direction, used three times, with its opposite used once to
+close the near tongue against the cog.
 
-## The existing file is correct
+    P0  near shoulder, undersquinted     direction S
+    P1  lower splay face                 direction R
+    P2  cog face, kept side              direction -S
+    P3  cog face, replaced side          direction S
+    P4  upper splay face                 direction R      (P1's rake, offset)
+    P5  far shoulder, undersquinted      direction S
 
-`SJ5.json` encodes a rake of exactly 3.000 against 2.994 measured — inside
-one pixel over the run. Single cut, `aspect` 3.0, no groups, kept fraction
-0.4978. Nothing to change; only this datasheet was missing.
+    removal = (P0 & P1 & P2) | (P3 & P4) | P5
 
-The scarf spans the interface block exactly: it meets the top face at
-y = 0.003 and the bottom face at y = 2.997. That is the natural placement for
-a scarf, where `aspect` is not a margin choice but the rake itself.
+Three groups, and each is closed on the kept side. The first is the tongue
+below the lower splay, stopped at the cog. The second is everything below the
+upper splay beyond the cog. The third is the whole section past the far
+shoulder.
 
-## Purpose
+| | value |
+|---|---|
+| aspect | 4.0 |
+| splay rake | 0.20 in z per 1.0 in y (11.3° to the axis) |
+| undersquint | 0.25 (14.0° off square) |
+| near shoulder | y 0.75, from z −0.50 to −0.34 |
+| cog | y 2.00, step of 0.18 in z, centred on z = 0 |
+| far shoulder | y 3.25, from z +0.34 to +0.50 |
+| distinct plane directions | 3 over 6 planes |
 
-The minimum-effort splice, and the one to use when the members cannot be
-manipulated much — the two faces simply slide past each other. Also the right
-choice when the splice will be reinforced anyway (plated, bolted, strapped),
-since the joinery contributes nothing beyond the glue line and the geometry
-just presents a long face to work with.
+The depth is spent symmetrically, and that is the check to make on any redraw:
 
-## Structural behaviour
+    stop 0.16 + splay 0.25 + cog 0.18 + splay 0.25 + stop 0.16 = 1.00
 
-The long rake is the whole idea: at 18.4° the joint face is 3.16 times the
-section area, so any glue, bolt or plate acting on it has three times the
-area it would have on a butt joint, and the stress crosses the grain at a
-shallow angle rather than end to end.
+Both stops the same, both splays the same rake and the same rise, the cog
+centred on the middle of the section, and the whole joint centred in its window
+at y 0.75 to 3.25. A first attempt had the stops at 0.22 and 0.12, which reads
+immediately as wrong in elevation — the two shoulders of a stop-splayed scarf
+are the same face doing the same job at each end.
 
-Left to itself it carries almost nothing. The insertion cone is **0.500 of
-the sphere** — half of all directions separate the halves, the largest of any
-joint in the catalogue and the exact opposite of SJ2's undercut. It has no
-mechanical interlock in any direction, resists tension only through friction,
-and under bending the two halves simply slide. It must be fastened.
+## Where the numbers came from — read this before trusting them
 
-That makes it the useful baseline for the gallery: the joint that maximises
-bonded area and minimises everything else.
+**These proportions are read off a photograph of the book page, not measured
+from a scan.** The other datasheets in this folder quote pixel measurements
+with residuals; this one cannot. What is faithful here is the *grammar* — stop
+shoulders at both ends, two parallel splay faces offset by a cog, shoulders and
+cog sharing one lean, the seam full width with no splay in plan. What is a
+reading are the exact rake, the undersquint angle, the cog height and the two
+shoulder stations.
 
-## Fabrication – sequence and tools
+They are proportioned to look like the drawn elevation on p. 124 and to behave
+correctly when placed, not fitted to it. If the page is ever scanned properly,
+the six offsets are the only thing that needs revisiting; the directions and
+the grouping will not change.
 
-Two steps in the book (A1, A2), the shortest sequence in the chapter.
+## Behaviour, measured
 
-1. **Lay out** (A1) – mark the two stations on opposite faces and connect
-   them right around; the line on the two narrow faces is the saw's guide.
-2. **Rake cut** (A2) – one continuous cut through the section, following the
-   lines on both narrow faces. There is nothing to pare afterwards and no
-   internal corner to reach.
-3. **Assemble** (A+A → AA) – the second part is identical, end for end.
+Placed on a 100 × 100 mm post rotten at the foot, swept through the full circle
+and slid to its best station:
 
-Tools: try square, marking knife, ryoba or a frame saw for the depth.
+| | |
+|---|---|
+| every rotten cell taken | yes, `rotLeft` 0 of 64 |
+| sound timber spent | 9.1% of the member |
+| locks | `-u`, `+v`, `-w` |
 
-The difficulty is entirely in sawing a long true plane. A wandering cut
-cannot be corrected by paring the way a lap cheek can, because both halves
-must remain complementary.
+`+v` is the cog earning its place: the joint resists the replacement piece
+being drawn along the member, which a plain splayed scarf does not do at all.
+That is the whole reason for the step, and it is the one thing this entry adds
+to the corpus that no other splice in it has.
 
-## Provenance
+## Note on the archive
 
-"Timber Joints", chapter Splicing Joints, pp. 156–157. Japanese sogi-tsugi,
-殺継ぎ; German Schäftung. Marked "2×".
-
-Note on naming: an earlier draft of this datasheet called it *schräges Blatt*.
-That is wrong — a *Blatt* is a lap, and this joint has none. *Schäftung* is
-the term the book uses and the correct one.
+This entry **replaces** the previous SJ5, which was a plain splayed scarf — a
+single raked plane, no shoulders, no cog (`sogi-tsugi`, 殺継ぎ, p. 156). The
+old plate-form record still sits at `plate-form/SJ5.json` and now describes a
+different joint from the one in `SJ5.json`. Either re-author that archive or
+read it as a record of what the entry used to be.

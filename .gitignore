@@ -109,11 +109,23 @@ ENV/
 gemini_api_key*
 **/secrets/
 
-# Rhino / Grasshopper
+# Rhino / Grasshopper backups and locks.
+# Rhino writes "model.3dmbak", with no dot before "bak". The old rule here was
+# "*.3dm.bak", which never matched anything, so every backup Rhino made was
+# committed. The same applies to .stlbak.
+*.3dmbak
+*.stlbak
 *.3dm.bak
-*.rhl
+*.ghbak
+*.ghxbak
+*.gh.bak
 *.ghx.bak
+*.rhl
 .rhinocode/
+
+# Scratch and caches
+tmp/
+.uv-cache/
 
 # OS cruft
 .DS_Store

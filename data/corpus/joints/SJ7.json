@@ -1,26 +1,11 @@
 {
  "schema": "repair-joint@1",
- "key": "SJ8",
+ "key": "SJ7",
  "aspect": 3.0,
  "section": 1.0,
- "removal_groups": [
-  [
-   0
-  ],
-  [
-   1,
-   2
-  ],
-  [
-   1,
-   3,
-   4,
-   5
-  ]
- ],
  "cuts": [
   {
-   "name": "seat_end",
+   "name": "seat end",
    "is_stock": false,
    "normal": [
     0.0,
@@ -58,7 +43,7 @@
    ]
   },
   {
-   "name": "lap_up",
+   "name": "lap positive",
    "is_stock": false,
    "normal": [
     0.0,
@@ -134,7 +119,7 @@
    ]
   },
   {
-   "name": "dt_root",
+   "name": "bowtie root",
    "is_stock": false,
    "normal": [
     0.0,
@@ -172,7 +157,7 @@
    ]
   },
   {
-   "name": "dt_xp",
+   "name": "bowtie flank A",
    "is_stock": false,
    "normal": [
     -0.9879195263882261,
@@ -210,7 +195,7 @@
    ]
   },
   {
-   "name": "dt_xn",
+   "name": "bowtie flank B",
    "is_stock": false,
    "normal": [
     0.9879195263882261,
@@ -247,5 +232,22 @@
     1
    ]
   }
- ]
+ ],
+ "removal_groups": [
+  [
+   0
+  ],
+  [
+   1,
+   2
+  ],
+  [
+   1,
+   3,
+   4,
+   5
+  ]
+ ],
+ "what": "shortened lap plus intersected bow-tie feature",
+ "rule": "base = P0 | (P1 & P2); bowtie = P1 & P3 & P4 & P5; R = base | bowtie"
 }

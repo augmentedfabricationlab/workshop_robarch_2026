@@ -1,39 +1,28 @@
+"""Workshop RobArch 2026: AI assisted repair joinery for historic timber.
+
+The Grasshopper pipeline (components 00 to 04) uses these modules:
+
+    agents      the Gemini calls, the prompt files and the joint corpus
+    context     the Workspace: parts, conditions, evidence, the repair plan
+    damagemap   survey regions painted onto the cells
+    joinery     joints as planes, their placement and every measurement
+    kernel      the cut definitions and the point classifier
+    neighbours  member frames, part boxes, and what touches what
+    scoring     point in solid tests
+    evaluator   turns the cut expressions into Rhino Breps
+
+The other modules belong to the manual, algorithmic and scanning definitions.
 """
 
-Intro to project ...
-
-
-Setup
-=====
-
-In order to use this library, ...
-
-
-Main concepts
-=============
-
-Describe typical classes found in project
-
-.. autoclass:: SampleClassName
-   :members:
-
-
-"""
-
-from .sample_module import SampleClassName
-
-# The pointcloud publisher needs roslibpy, which is installed into Rhino's
-# CPython but not into every plain interpreter. Importing the package must
-# never depend on it -- kernel/joints/evaluator have no ROS dependency.
+# The point cloud publisher needs roslibpy, and scanframes needs compas. Both
+# are installed in Rhino's Python but not in every plain interpreter, so
+# importing this package must not depend on either of them.
 try:
-    from .pointcloud_publisher import *
+    from .pointcloud_publisher import *  # noqa: F401,F403
 except ImportError:  # pragma: no cover - roslibpy absent
     pass
 
-# scanframes needs compas, likewise present in Rhino but not everywhere.
 try:
-    from .scanframes import *
+    from .scanframes import *  # noqa: F401,F403
 except ImportError:  # pragma: no cover - compas absent
     pass
-
-__all__ = ['SampleClassName']
