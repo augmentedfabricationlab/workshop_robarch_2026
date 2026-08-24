@@ -99,6 +99,11 @@ Installation
     import compas_fab
     import compas_robots
 
+    import assembly_information_model
+    import ur_fabrication_control
+    import mobile_robot_control
+    import fabrication_manager
+
     print(compas.__version__)
     print(compas_fab.__version__)
     print(compas_robots.__version__)
