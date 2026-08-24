@@ -30,6 +30,11 @@ Project Website
 -------------
 We have created a website for this workshop. This can be found at: `https://augmentedfabricationlab.github.io/workshop_robarch_2026/ <https://augmentedfabricationlab.github.io/workshop_robarch_2026/>`_. We will regularly update the website with information about the workshop, including schedules, materials, and resources.
 
+Repair Workspace
+-------------
+The repair workspace for this workshop can be found at: `https://repair-workspace.vercel.app/?project=example%3Atimber_corner <https://repair-workspace.vercel.app/?project=example%3Atimber_corner>`_.
+
+
 .. Main features
 -------------
 
