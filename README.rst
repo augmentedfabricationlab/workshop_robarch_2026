@@ -77,9 +77,9 @@ Installation
 
 * Navigate to the ``C:\Users\<username>\.rhinocode\py39-rh8`` folder and run the following command in a Command Prompt to install the project dependencies:
 
-  .. code-block:: bash
+  .. .. code-block:: bash
 
-      C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install -r C:\Users\<username>\workspace\projects\assembly_information_model\src
+   ..    C:\Users\<username>\.rhinocode\py39-rh8\python.exe -m pip install -r C:\Users\<username>\workspace\projects\assembly_information_model\src
 
 * Install COMPAS, COMPAS FAB, and COMPAS Robots using the following commands:
 
