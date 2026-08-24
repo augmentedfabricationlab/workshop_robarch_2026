@@ -59,11 +59,11 @@ The following are to be needed for the workshop:
 * Check the folder if it exists: ``C:\Users\<username>\.rhinocode\py39-rh8``. If it does not exist, that means python is not installed. Ask the instructors or your peers for troubleshooting.
 * You need to clone certain repositories from GitHub to your local machine. In your ``C:\Users\<username>`` folder, create a new folder called ``workspace`` and another subfolder called ``projects``. Then clone the following repositories into the ``projects`` folder: 
 
-    * `workshop_robarch_2026 <https://github.com/augmentedfabricationlab/workshop_robarch_2026>`_
-    * `assembly_information_model <https://github.com/augmentedfabricationlab/assembly_information_model>`_
-    * `ur_fabrication_control <https://github.com/augmentedfabricationlab/ur_fabrication_control>`_
-    * `fabrication_manager <https://github.com/augmentedfabricationlab/fabrication_manager>`_
-    * `mobile_robot_control <https://github.com/augmentedfabricationlab/mobile_robot_control>`_
+    * `workshop_robarch_2026 <https://github.com/augmentedfabricationlab/workshop_robarch_2026>`_ *(Branch: main)*
+    * `assembly_information_model <https://github.com/augmentedfabricationlab/assembly_information_model>`_ *(Branch: cellularized_assembly)*
+    * `ur_fabrication_control <https://github.com/augmentedfabricationlab/ur_fabrication_control>`_ *(Branch: main)*
+    * `fabrication_manager <https://github.com/augmentedfabricationlab/fabrication_manager>`_ *(Branch: compas2_master)*
+    * `mobile_robot_control <https://github.com/augmentedfabricationlab/mobile_robot_control>`_ *(Branch: compas2)*
 
 Installation
 ------------
